@@ -53,37 +53,52 @@ public class MySingleWithTailLinkedList implements Serializable
         Node temp = top;
 
         // no list
-        if (top == null) {
+        if(top == null) {
             tail = top = new Node(rental, null);
             return;
-        }
-
-        // rental is a Game, and rental goes on top
-        if (rental instanceof Game && top.getData().dueBack.after(rental.dueBack)) {
-            top = new Node(rental, top);
-            return;
-        }
-
-        //  more code goes here.
-
-        return;
-
+        } else {
+		tail.setNext(new Node(rental, null));
+		tail = tail.getNext();
+	}
+	
     }
 
     public Rental remove(int index) {
         //  more code goes here.
 
-        return null;
+    	
+			    
+	    if(top == null || index >= size) {
+		throw new IllegalArgumentException();
+	    }
     }
 
     public Rental get(int index) {
         //  more code goes here.
 
-        if (top == null)
+	//Not sure if this is the best way,
+	//if index is invalid, this will still return
+	//null if top is null
+        if (top == null) {
             return null;
+	}
 
-        return top.getData(); // this line will need to be changed
-         }
+	//Index error checks
+	if(index >= size) {
+	    throw new IllegalArgumentException();
+	} else {
+		//code to find rental at index
+		Node temp = top;
+		while(index > 0) {
+			temp = temp.getNext();
+			index--;
+		}
+		
+		return temp.getData();
+
+	}	
+	
+    }
 
     public void display() {
         Node temp = top;

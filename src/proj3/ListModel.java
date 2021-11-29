@@ -323,6 +323,8 @@ public class ListModel extends AbstractTableModel {
                         game = new Game(guest, g4, g, null, "title2", null);
                     add(game);
 
+                    //remove later
+                    System.out.println(date + guest);
                 } else {
                     guest = "Console" + rand.nextInt(5);
                     date = df.parse("7/" + (rand.nextInt(20) + 2) + "/2020");
@@ -331,7 +333,8 @@ public class ListModel extends AbstractTableModel {
 
                     add(console);
 
-
+                    //remove later
+                    System.out.println(date + guest);
                 }
 
                 count++;

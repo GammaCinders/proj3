@@ -99,18 +99,11 @@ public class MySingleWithTailLinkedList implements Serializable
                     temp = temp.getNext();
                 }
             }
-
-
-            // TODO major things to fix/add
-            // Beginning or array case (top)
-            // Ending of array case (tail)
-
+        // Must be a console
         } else {
             temp = tail;
         }
 
-        // Now just add in game in correct place,
-        // This works even at the end of the list TODO but doesn't change tail yet
         Node newNode = new Node(rental, temp.getNext());
         temp.setNext(newNode);
         //Lol

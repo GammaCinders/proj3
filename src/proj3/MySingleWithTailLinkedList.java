@@ -106,7 +106,10 @@ public class MySingleWithTailLinkedList implements Serializable
             // TODO have to change later when adding Name sorting
             // Case: Console goes before top
             if(top.getData() instanceof Console
-                    && rental.getDueBack().compareTo(top.getData().getDueBack()) < 0) {
+                    && rental.getDueBack().compareTo(top.getData().getDueBack()) < 0
+                    || top.getData() instanceof Console
+                    && rental.getDueBack().compareTo(top.getData().getDueBack()) == 0
+                    && rental.getNameOfRenter().compareTo(top.getData().getNameOfRenter()) < 0) {
                 top = new Node(rental, top);
                 return;
             }

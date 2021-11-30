@@ -79,6 +79,7 @@ public class TestLinkList {
 
         Console console1 = new Console("Console1", g3, g10, null, ConsoleTypes.PlayStation4);
         Console console2 = new Console("Console2", g3, g5, null, ConsoleTypes.PlayStation4);
+        Console console0 = new Console("Console0", g3, g5, null, ConsoleTypes.PlayStation4);
         Game game1 = new Game("Game1", g3, g10, null, "title2",
                 new Console("Game1", g3, g10, null, ConsoleTypes.PlayStation4));
         Game game2 = new Game("Game2", g3, g5, null, "title3",
@@ -89,6 +90,7 @@ public class TestLinkList {
 
         list.add(console1);
         list.add(console2);
+        list.add(console0);
         list.add(game1);
         list.add(game2);
         list.add(console3);
@@ -99,11 +101,12 @@ public class TestLinkList {
         // Game/Console (g/c): g2, g1, c2, c1, c3, c4, c5
         assertEquals("Game2", list.get(0).getNameOfRenter());
         assertEquals("Game1", list.get(1).getNameOfRenter());
-        assertEquals("Console2", list.get(2).getNameOfRenter());
-        assertEquals("Console1", list.get(3).getNameOfRenter());
-        assertEquals("Console3", list.get(4).getNameOfRenter());
-        assertEquals("Console4", list.get(5).getNameOfRenter());
-        assertEquals("Console5", list.get(6).getNameOfRenter());
+        assertEquals("Console0", list.get(2).getNameOfRenter());
+        assertEquals("Console2", list.get(3).getNameOfRenter());
+        assertEquals("Console1", list.get(4).getNameOfRenter());
+        assertEquals("Console3", list.get(5).getNameOfRenter());
+        assertEquals("Console4", list.get(6).getNameOfRenter());
+        assertEquals("Console5", list.get(7).getNameOfRenter());
     }
 
 }

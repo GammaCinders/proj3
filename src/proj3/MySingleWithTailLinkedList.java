@@ -185,7 +185,7 @@ public class MySingleWithTailLinkedList implements Serializable  {
      * returns the rental it contained.
      * @param index the index of node to remove
      * @return Rental that the removed node contained
-     * @throws IllegalArgumentException if index is >= size() or < 0
+     * @throws IllegalArgumentException if index is >= size() or < 0,
      *                                  also if this list is empty
      ******************************************************************/
     public Rental remove(int index) {
@@ -243,6 +243,9 @@ public class MySingleWithTailLinkedList implements Serializable  {
      * Returns the Rental in the node at the argument index
      * @param index index to retrieve Rental from
      * @return Rental in the node at the argument index
+     * @throws IllegalArgumentException if this list is not empty and
+     *                                  argument index is >= size()
+     *                                  or < 0
      *****************************************************************/
     public Rental get(int index) {
 

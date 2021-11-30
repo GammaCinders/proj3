@@ -299,8 +299,8 @@ public class ListModel extends AbstractTableModel {
             listOfRentals.remove(listOfRentals.size()-1);
             add(game7);
             add(console2);
-            for (int i = 0; i < listOfRentals.size(); i++)
-                System.out.println(listOfRentals.get(i).toString());
+//            for (int i = 0; i < listOfRentals.size(); i++)
+//                System.out.println(listOfRentals.get(i).toString());
 
             
 
@@ -309,7 +309,7 @@ public class ListModel extends AbstractTableModel {
             Random rand = new Random(13);
             String guest = null;
 
-            while (count < 300) {
+            while (count < 600) {
                 Date date = df.parse("7/" + (rand.nextInt(10) + 2) + "/2020");
                 GregorianCalendar g = new GregorianCalendar();
                 g.setTime(date);
@@ -322,9 +322,6 @@ public class ListModel extends AbstractTableModel {
                     else
                         game = new Game(guest, g4, g, null, "title2", null);
                     add(game);
-
-                    //remove later
-                    System.out.println(date + guest);
                 } else {
                     guest = "Console" + rand.nextInt(5);
                     date = df.parse("7/" + (rand.nextInt(20) + 2) + "/2020");
@@ -332,9 +329,6 @@ public class ListModel extends AbstractTableModel {
                     Console console = new Console(guest, g4, g, null, getOneRandom(rand));
 
                     add(console);
-
-                    //remove later
-                    System.out.println(date + guest);
                 }
 
                 count++;

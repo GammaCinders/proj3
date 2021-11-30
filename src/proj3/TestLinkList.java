@@ -11,8 +11,8 @@ import java.util.GregorianCalendar;
 
 public class TestLinkList {
 
-    // These are named gxx, where xx is the day of the month of
-    // December in 2020 (because it's easier to make tests this way)
+    // These are named gxx, where xx is the day of the month in
+    // December 2020 (because it's easier to make tests this way)
     SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
     GregorianCalendar g3 = new GregorianCalendar();
     GregorianCalendar g5 = new GregorianCalendar();
@@ -20,6 +20,7 @@ public class TestLinkList {
     GregorianCalendar g15 = new GregorianCalendar();
     GregorianCalendar g20 = new GregorianCalendar();
 
+    // Creates preset dates to use so that tests are simpler to write
     @Before
     public void dateSetup() {
         try {
@@ -40,21 +41,29 @@ public class TestLinkList {
         }
     }
 
+    // Tests all cases when adding a Game Rental
     @Test
     public void addingGamesTests() {
-        MySingleWithTailLinkedList list = new MySingleWithTailLinkedList();
+        MySingleWithTailLinkedList list =
+                new MySingleWithTailLinkedList();
 
-        Console console1 = new Console("Console1", g3, g10, null, ConsoleTypes.PlayStation4);
+        Console console1 = new Console("Console1", g3, g10, null,
+                ConsoleTypes.PlayStation4);
         Game game2 = new Game("Game2", g3, g10, null, "title2",
-                new Console("Game2", g3, g10, null, ConsoleTypes.PlayStation4));
+                new Console("Game2", g3, g10, null,
+                        ConsoleTypes.PlayStation4));
         Game game3 = new Game("Game3", g3, g5, null, "title3",
-                new Console("Game3", g3, g5, null, ConsoleTypes.PlayStation4));
+                new Console("Game3", g3, g5, null,
+                        ConsoleTypes.PlayStation4));
         Game game4 = new Game("Game4", g3, g5, null, "title4",
-                new Console("Game4", g3, g5, null, ConsoleTypes.PlayStation4));
+                new Console("Game4", g3, g5, null,
+                        ConsoleTypes.PlayStation4));
         Game game5 = new Game("Game5", g3, g5, null, "title5",
-                new Console("Game5", g3, g5, null, ConsoleTypes.PlayStation4));
+                new Console("Game5", g3, g5, null,
+                        ConsoleTypes.PlayStation4));
         Game game6 = new Game("Game6", g3, g15, null, "title5",
-                new Console("Game6", g3, g15, null, ConsoleTypes.PlayStation4));
+                new Console("Game6", g3, g15, null,
+                        ConsoleTypes.PlayStation4));
 
         list.add(console1);
         list.add(game2);
@@ -71,22 +80,33 @@ public class TestLinkList {
         assertEquals("Game2", list.get(3).getNameOfRenter());
         assertEquals("Game6", list.get(4).getNameOfRenter());
         assertEquals("Console1", list.get(5).getNameOfRenter());
+
+        addingConsolesTests();
     }
 
+    // Tests all cases when adding a Console Rental
     @Test
     public void addingConsolesTests() {
         MySingleWithTailLinkedList list = new MySingleWithTailLinkedList();
 
-        Console console1 = new Console("Console1", g3, g10, null, ConsoleTypes.PlayStation4);
-        Console console2 = new Console("Console2", g3, g5, null, ConsoleTypes.PlayStation4);
-        Console console0 = new Console("Console0", g3, g5, null, ConsoleTypes.PlayStation4);
+        Console console1 = new Console("Console1", g3, g10, null,
+                ConsoleTypes.PlayStation4);
+        Console console2 = new Console("Console2", g3, g5, null,
+                ConsoleTypes.PlayStation4);
+        Console console0 = new Console("Console0", g3, g5, null,
+                ConsoleTypes.PlayStation4);
         Game game1 = new Game("Game1", g3, g10, null, "title2",
-                new Console("Game1", g3, g10, null, ConsoleTypes.PlayStation4));
+                new Console("Game1", g3, g10, null,
+                        ConsoleTypes.PlayStation4));
         Game game2 = new Game("Game2", g3, g5, null, "title3",
-                new Console("Game2", g3, g5, null, ConsoleTypes.PlayStation4));
-        Console console3 = new Console("Console3", g3, g15, null, ConsoleTypes.PlayStation4);
-        Console console5 = new Console("Console5", g3, g15, null, ConsoleTypes.PlayStation4);
-        Console console4 = new Console("Console4", g3, g15, null, ConsoleTypes.PlayStation4);
+                new Console("Game2", g3, g5, null,
+                        ConsoleTypes.PlayStation4));
+        Console console3 = new Console("Console3", g3, g15, null,
+                ConsoleTypes.PlayStation4);
+        Console console5 = new Console("Console5", g3, g15, null,
+                ConsoleTypes.PlayStation4);
+        Console console4 = new Console("Console4", g3, g15, null,
+                ConsoleTypes.PlayStation4);
 
         list.add(console1);
         list.add(console2);

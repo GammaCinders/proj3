@@ -81,14 +81,10 @@ public class MySingleWithTailLinkedList implements Serializable
             // General Game Case Below
 
             // Put Temp in the correct position based on date
-            while(temp.getNext() != null && temp.getNext().getData() instanceof Game) {
-
-                // Stop when the temp node is at the correct node to add rental after
-                if(rental.getDueBack().compareTo(temp.getNext().getData().getDueBack()) <= 0) {
-                    break;
-                } else {
+            while(temp.getNext() != null
+                    && temp.getNext().getData() instanceof Game
+                    && rental.getDueBack().compareTo(temp.getNext().getData().getDueBack()) > 0) {
                    temp = temp.getNext();
-                }
             }
 
             // Put Temp in the correct position based on renters name

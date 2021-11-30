@@ -1,6 +1,7 @@
 package proj3;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Random;
 
 public class MySingleWithTailLinkedList implements Serializable
@@ -52,13 +53,14 @@ public class MySingleWithTailLinkedList implements Serializable
     public void add(Rental rental) {
         Node temp = top;
 
-
         // attempt at good code #3
         if(top == null) {
             top = tail = new Node(rental, null);
             return;
         }
 
+        // Case: Game: Handles Special Cases and
+        // moves temp to correct position
         if(rental instanceof Game) {
 
             // Case: No games in list yet
@@ -68,13 +70,15 @@ public class MySingleWithTailLinkedList implements Serializable
             }
 
             // Case: Game goes before top
-            if(rental.dueBack.compareTo(temp.getData().getDueBack()) < 0
-                    && rental.getNameOfRenter().compareTo(temp.getData().getNameOfRenter()) < 0) {
+            if(rental.getDueBack().compareTo(top.getData().getDueBack()) < 0
+                    || rental.getDueBack().compareTo(top.getData().getDueBack()) == 0
+                    && rental.getNameOfRenter().compareTo(top.getData().getNameOfRenter()) < 0) {
                 top = new Node(rental, top);
                 return;
             }
 
-            // General Game Below
+
+            // General Game Case Below
 
             // Put Temp in the correct position based on date
             while(temp.getNext() != null && temp.getNext().getData() instanceof Game) {
@@ -90,170 +94,55 @@ public class MySingleWithTailLinkedList implements Serializable
             // Put Temp in the correct position based on renters name
             while(temp.getNext() != null
                     && temp.getNext().getData() instanceof Game
-                    && temp.getNext().getData().getDueBack().compareTo(rental.getDueBack()) == 0) {
+                    && temp.getNext().getData().getDueBack().compareTo(rental.getDueBack()) == 0
+                    && rental.getNameOfRenter().compareTo(temp.getNext().getData().getNameOfRenter()) > 0) {
+                temp = temp.getNext();
+            }
+        }
 
-                // Stop when the temp node is at the correct node to add rental after
-                if(rental.getNameOfRenter().compareTo(temp.getNext().getData().getNameOfRenter()) <= 0) {
-                    break;
-                } else {
+        // Case: Game: Handles Special Cases and
+        // moves temp to correct position
+        if(rental instanceof Console) {
+
+            // First move temp to end of consoles
+
+            // TODO important Can still have to add if only consoles exist
+            // TODO have to change later when adding Name sorting
+            // Case: Console goes before top
+            if(top.getData() instanceof Console
+                    && rental.getDueBack().compareTo(top.getData().getDueBack()) < 0) {
+                top = new Node(rental, top);
+                return;
+            }
+
+            // Move temp to the last game in list
+            if(top.getData() instanceof Game) {
+                while(temp.getNext() != null && temp.getNext().getData() instanceof Game) {
                     temp = temp.getNext();
                 }
             }
-        // Must be a console
-        } else {
-            temp = tail;
+
+            // Move temp to correct due date position
+            while(temp.getNext() != null
+                    && rental.getDueBack().compareTo(temp.getNext().getData().getDueBack()) > 0) {
+                temp = temp.getNext();
+            }
+
+            // Move temp to correct name position
+            while(temp.getNext() != null
+                    && rental.getNameOfRenter().compareTo(temp.getNext().getData().getNameOfRenter()) > 0
+                    && rental.getDueBack().compareTo(temp.getNext().getData().getDueBack()) == 0) {
+                temp = temp.getNext();
+            }
+
+
         }
 
-        Node newNode = new Node(rental, temp.getNext());
-        temp.setNext(newNode);
-        //Lol
+        // Love this line. It's neat and always works, even at the tail
+        temp.setNext(new Node(rental, temp.getNext()));
+        // Lol
         while(tail.getNext() != null) {tail = tail.getNext();}
         return;
-
-
-//        // attempt at good code #2
-//
-//        // Case: List is empty: just add the rental
-//        if(top == null) {
-//            top = tail = new Node(rental, null);
-//            return;
-//        } else {
-//            if(rental instanceof Game) {
-//                // Case: No Games in List: Just add new game at top
-//                if(top.getData() instanceof Console) {
-//                    // TODO I don't know if this works
-//                    top = new Node(rental, top);
-//                    return;
-//                }
-//
-//                    // Case: Start of List: Add at top
-//                    if(rental.getDueBack().compareTo(top.getData().getDueBack()) >= 0
-//                            && rental.getNameOfRenter().compareTo(top.getData().getNameOfRenter()) >= 0) {
-//                        // TODO I don't know if this works
-//                        top = new Node(rental, top);
-//                        return;
-//                    }
-//
-//                    // Put temp at correct position based on dueDate
-//                    while(temp.getNext() != null && temp.getNext().getData() instanceof Game) {
-//                        if(rental.getDueBack().compareTo(temp.getNext().getData().getDueBack()) <= 0) {
-//                            break;
-//                        } else {
-//                            temp = temp.getNext();
-//                        }
-//                    }
-//
-//
-//                    // Put temp in correct position based on renter name
-//                    while(temp.getNext() != null
-//                            && rental.getDueBack().compareTo(top.getData().getDueBack()) >= 0
-//                            && temp.getNext().getData() instanceof Game) {
-//
-//                        if(rental.getNameOfRenter().compareTo(temp.getNext().getData().getNameOfRenter()) <= 0) {
-//                            break;
-//                        } else {
-//                            temp = temp.getNext();
-//                        }
-//                    }
-//
-//
-//                    Node newNode = new Node(rental, temp.getNext());
-//                    temp.setNext(newNode);
-//                    return;
-//
-//
-//            // Must be a Console
-//            } else {
-//
-//            }
-//        }
-//
-//
-//
-//        //attempt at good code #1 below
-//
-//        // no list
-//        if(top == null) {
-//            top = tail = new Node(rental, null);
-//            return;
-//        } else {
-//            if(rental instanceof Game) {
-//                // Special Case //
-//                // Because of how I implemented the general case below this, I need a special case
-//                // when the new rental goes at the very start of the list (replaces top)
-//                // Both conditions below are to check when the new rental goes in the first index,
-//                // and to handle it accordingly
-//                // TODO this could be backwards, check back here first when things go wrong
-//                if(rental.dueBack.compareTo(top.getData().dueBack) < 0 || top.getData() instanceof Console) {
-//                    // TODO this should work but I'm not sure honestly
-//                    top = new Node(rental, top);
-//                    return;
-//                }
-//
-//                // General Case //
-//                // This loop runs from the start of the list until it gets to the end of games
-//                // or end of the list. Temp always ends up at the node where rental gets added after
-//                // temp node
-//                while(temp.getNext() != null && temp.getNext().getData() instanceof Game) {
-//                    if(temp.getNext().getData().dueBack.compareTo(rental.dueBack) <= 0) {
-//                        break;
-//                    }
-//                }
-//
-//                // This works everywhere in the list (it just can't add something at the top),
-//                // even at the very end, very poggers!
-//                Node newNode = new Node(rental, temp.getNext());
-//                temp.setNext(newNode);
-//                return;
-//
-//            // Adding Console
-//            } else {
-//                // When adding consoles, temp should immediatly go to the node directly before
-//                // the first console if possible
-//                if(top.getData() instanceof Game) {
-//                    while(temp.getNext().getData() instanceof Game && temp.getNext() != null) {
-//                        temp = temp.getNext();
-//                    }
-//                // When there are only consoles and the new Rental is the earliest one
-//                // there is a special case again due to my general case like with Games
-//                } else if(rental.getDueBack().compareTo(top.getData().getDueBack()) <= 0) {
-//                    // Special Case //
-//                    // TODO this should work but I'm not sure honestly
-//                    top = new Node(rental, top);
-//                    return;
-//                }
-//
-//
-//
-//                // General Case //
-//                // This loop runs from the start of the list until it gets to the end of games
-//                // or end of the list. Temp always ends up at the node where rental gets added after
-//                // temp node
-//
-//                //Loop for
-//                while() {
-//
-//                }
-//
-//                while(temp.getNext() != null && temp.getNext().getData() instanceof Console) {
-//                    if(temp.getNext().getData().dueBack.compareTo(rental.dueBack) <= 0) {
-//                        break;
-//                    }
-//                }
-//
-//                // This works everywhere in the list (it just can't add something at the top),
-//                // even at the very end, very poggers!
-//                Node newNode = new Node(rental, temp.getNext());
-//                temp.setNext(newNode);
-//                return;
-//            }
-//
-//
-//
-//		    tail.setNext(new Node(rental, null));
-//		    tail = tail.getNext();
-//    	}
-//
     }
 
 
@@ -301,7 +190,7 @@ public class MySingleWithTailLinkedList implements Serializable
             temp = temp.getNext();
         }
 
-        // Saves
+        // Saves and removes
         removedRental = temp.getNext().getData();
         temp.setNext(temp.getNext().getNext());
 
@@ -309,19 +198,16 @@ public class MySingleWithTailLinkedList implements Serializable
     }
 
     public Rental get(int index) {
-	    //Not sure if this is the best way,
-	    //if index is invalid, this will still return
-
-	    //null if top is null
+	    // null if top is null
         if (top == null) {
             return null;
 	    }
 
-	    //Index error checks
+	    // Index error checks
 	    if(index >= size() || index < 0) {
 	        throw new IllegalArgumentException();
 	    } else {
-		    //code to find rental at index
+		    // code to find rental at index
             Node temp = top;
             while(index > 0) {
 			    temp = temp.getNext();

@@ -9,6 +9,7 @@ public class Console extends Rental {
     private ConsoleTypes consoleType;
 
     public Console() {
+
     }
 
     public Console(String nameOfRenter,

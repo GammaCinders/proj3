@@ -17,6 +17,7 @@ public class Game extends Rental {
     private Console console;
 
     public Game() {
+
     }
 
     public Game(String nameOfRenter,

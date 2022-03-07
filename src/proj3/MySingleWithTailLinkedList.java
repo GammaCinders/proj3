@@ -12,7 +12,7 @@ import java.util.Random;
  * clear(), get(), remove(), toString(), and display() methods.)
  *
  * @author Keagen Talsma
- * @version 11/30/2020
+ * @version 11/30/2021
  *********************************************************************/
 public class MySingleWithTailLinkedList implements Serializable  {
 
